@@ -1,0 +1,156 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #eef2f6;
+    color: #243447;
+}
+
+.page-shell {
+    padding: 40px 0;
+}
+
+.summary-container {
+    width: min(1400px, 100%);
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(18, 37, 63, 0.08);
+    padding: 36px;
+    border: 1px solid #d8e0ea;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 24px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid #d8e0ea;
+}
+
+.page-header h1 {
+    margin: 0 0 10px;
+    color: #17375e;
+    font-size: 2rem;
+}
+
+.welcome-text {
+    margin: 0;
+    color: #526377;
+}
+
+.logout-row {
+    margin: 0;
+}
+
+.logout-link {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background-color: #17375e;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.content-section {
+    margin-bottom: 24px;
+    padding: 24px;
+    background-color: #f9fbfc;
+    border: 1px solid #dbe4ee;
+    border-radius: 14px;
+}
+
+.content-section:last-child {
+    margin-bottom: 0;
+}
+
+.content-section h2 {
+    margin: 0 0 18px;
+    color: #17375e;
+    font-size: 1.3rem;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.detail-item {
+    margin: 0;
+    padding: 14px 16px;
+    background-color: #ffffff;
+    border: 1px solid #d8e0ea;
+    border-radius: 10px;
+    line-height: 1.5;
+}
+
+.empty-state {
+    margin: 0;
+    padding: 14px 16px;
+    background-color: #ffffff;
+    border: 1px solid #d8e0ea;
+    border-radius: 10px;
+    color: #526377;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border: 1px solid #d8e0ea;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.history-table th,
+.history-table td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e3eaf2;
+}
+
+.history-table th {
+    background-color: #17375e;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.history-table tr:nth-child(even) td {
+    background-color: #f7f9fb;
+}
+
+.history-table tr:last-child td {
+    border-bottom: none;
+}
+
+@media (max-width: 700px) {
+    .page-shell {
+        padding: 20px 0;
+    }
+
+    .summary-container {
+        padding: 24px 18px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .logout-link {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .content-section {
+        padding: 18px;
+    }
+}
