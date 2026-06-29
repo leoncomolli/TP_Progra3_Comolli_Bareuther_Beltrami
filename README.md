@@ -1,57 +1,333 @@
-﻿# UTN FRH Tecnicatura Universitaria en P rogramación #
-# Programación III 2026 #
-# TP Integrador: Sistema de Consulta de Liquidaciones "Mis Tarjetas" 💳
+﻿# Trabajo Práctico Programación III - Progra3Card
 
-¡Bienvenido al Trabajo Práctico Integrador de la asignatura **Programación III**! En este proyecto vas a trabajar en la integración de plataformas implementando un ecosistema donde una aplicación de escritorio y un portal web comparten la misma base de datos relacional.
+## Sistema de Consulta de Liquidaciones de Tarjetas
 
----
+Proyecto realizado para la materia *Programación III* de la *Tecnicatura Universitaria en Programación*.
 
-## 📌 Objetivo del Trabajo Práctico
-El objetivo es aplicar la POO al simular el circuito financiero real de la tarjeta **Progra3card**:
-1. **Fase Administrativa (C# - Aplicación de Consola):** Los empleados de la entidad financiera emiten tarjetas registrando clientes y cargan los totales de las liquidaciones mensuales en la base de datos.
-2. **Fase del Cliente (PHP - Portal Web):** El titular de la tarjeta realiza su activación digital (*onboarding*) validando su identidad, ingresa con sus credenciales y consulta su última liquidación, además de poder revisar el historial de resúmenes anteriores.
+El sistema permite administrar tarjetas de crédito desde una aplicación de consola en C# y consultar liquidaciones desde un portal web desarrollado en PHP. Ambas partes trabajan sobre la misma base de datos MySQL llamada mi_banco_db.
 
 ---
 
-## 🗺️ Flujo de la Información e Integración
-Para entender el orden de desarrollo y la interacción de las tecnologías, el flujo lógico del sistema sigue estos pasos:
+## Integrantes
 
-1. **C# (Consola):** El personal de la tarjeta **Progra3card** registra a los nuevos clientes en la tabla `usuarios` (alta de un nuevo cliente) y emite una tarjeta registrando los datos de ésta en la tabla `tarjetas` (deberá seleccionar el banco emisor). Cada cliente es titular de una única tarjeta. A su vez carga mensualmente los resúmenes emitidos en la tabla `liquidaciones`.
-2. **PHP (Web):** El usuario ingresa a `registro.html` e ingresa su DNI. El backend `altas.php` verifica que ya posea una tarjeta cargada por el banco y, de ser así, actualiza (`UPDATE`) su `usuario` y `password` (en texto plano) para activar su cuenta.
-3. **PHP (Web):** El usuario inicia sesión en `ingreso.html` y accede a `resumen.php` para visualizar el estado de su cuenta.
-
----
-
-## 🗄️ Estructura de la Base de Datos (`mi_banco_db`)
-El motor de base de datos MySQL/MariaDB cuenta con el esquema ya provisto en este repositorio:
-* **`usuarios`**: Almacena los datos personales del cliente. Los campos `usuario` y `password` inician en `NULL` hasta su activación web. Su clave primaria es el `documento`.
-* **`tarjetas`**: Contiene la información del plástico (`numero_tarjeta`, `banco_emisor` como ENUM, `saldo` y `estado`). Tiene una relación estricta 1:1 vinculada mediante la clave foránea `dni_titular`.
-* **`liquidaciones`**: Guarda las cabeceras financieras de los resúmenes (`periodo` en formato `YYYY-MM`, `fecha_vencimiento`, `total_a_pagar` y `pago_minimo`).
-
-> 💡 **Nota:** El script `.sql` incluye registros de prueba (*seed data*) pre-cargados para que puedas probar el sistema inmediatamente.
+* León Comolli
+* Bareuther
+* Beltrami
 
 ---
 
-## 📂 Archivos Base del Repositorio
-En este repositorio vas a encontrar la estructura inicial para la pata web:
-* 📄 `mi_banco_db.sql`: Script de creación de tablas y datos de prueba.
-* 📄 `ingreso.html`: Formulario de login estilizado con Tailwind CSS.
-* 📄 `registro.html`: Formulario de activación de usuario estilizado con Tailwind CSS.
-* 📄 `Progra3card.cs`: Aplicación de consola C# (solo el "esqueleto") para la emisión, consulta, baja de tarjetas y emisión de liquidaciones.
+## Tecnologías utilizadas
 
-### 🛠️ ¿Qué tenés que programar?
-* **En PHP:** Deberás crear la lógica backend para el procesamiento del registro (`altas.php`), el inicio y control de sesiones (`ingreso.php`), y el panel interactivo del cliente (`resumen.php`) que realice los `JOIN` correspondientes para listar las liquidaciones.
-* **En C#:** Deberás estructurar una solución de consola a partir del código provisto, que complete las funcionalidades requeridas, como ser conectarse a MySQL (usando MySQL Connector) y otras para dar de alta clientes/tarjetas y emitir nuevas liquidaciones.
+* C#
+* .NET 8
+* MySQL / MariaDB
+* PHP
+* HTML
+* XAMPP
+* phpMyAdmin
+* MySql.Data
+
+---
+
+## Estructura del proyecto
+
+text
+TP_Progra3_Comolli_Bareuther_Beltrami/
+│
+├── Progra3card.cs
+├── Progra3card.csproj
+│
+├── mi_banco_db.sql
+│
+├── ingreso.html
+├── registro.html
+│
+├── conexion.php
+├── altas.php
+├── ingreso.php
+├── resumen.php
+├── logout.php
+│
+├── .gitignore
+└── README.md
+
 
 ---
 
-## 🚫 Simplificaciones para esta Entrega
-Para optimizar los tiempos de la cursada, quedan **excluidos** de este trabajo práctico:
-* El desglose de consumos o compras individuales (el resumen se maneja solo a nivel de totales financieros).
-* La encriptación o hasheo de claves (las contraseñas se almacenan y validan temporalmente en **texto plano**).
-* Temas de infraestructura como contenedores Docker o entornos LEMP avanzados.
+## Base de datos
+
+El sistema utiliza la base de datos:
+
+text
+mi_banco_db
+
+
+La base contiene tres tablas principales:
+
+### usuarios
+
+Guarda los datos personales del cliente y sus credenciales web.
+
+### tarjetas
+
+Guarda los datos de la tarjeta asociada al cliente, como número de cuenta, número de tarjeta, banco emisor, estado y saldo.
+
+### liquidaciones
+
+Guarda los resúmenes mensuales de cada tarjeta, incluyendo período, vencimiento, total a pagar y pago mínimo.
+
+El archivo para crear e importar la base es:
+
+text
+mi_banco_db.sql
+
 
 ---
-*¡Mucho éxito en el desarrollo! Ante cualquier duda, recordá consultar vía Teams o durante las clases presenciales.*
 
-Osvaldo Cantone
+## Funcionamiento general
+
+El proyecto está dividido en dos partes principales.
+
+## 1. Aplicación administrativa en C#
+
+La aplicación de consola está destinada al personal administrativo de la entidad financiera.
+
+Desde la consola se puede:
+
+1. Emitir una nueva tarjeta / alta de cliente.
+2. Listar tarjetas existentes.
+3. Ver detalle completo de una tarjeta y su cliente.
+4. Eliminar una tarjeta.
+5. Emitir una nueva liquidación mensual.
+6. Salir del sistema.
+
+La aplicación se conecta a la base de datos MySQL usando MySql.Data.MySqlClient.
+
+Archivo principal:
+
+text
+Progra3card.cs
+
+
+Archivo de proyecto:
+
+text
+Progra3card.csproj
+
+
+---
+
+## 2. Portal web de clientes en PHP
+
+El portal web permite que los clientes activen su usuario web, inicien sesión y consulten sus liquidaciones.
+
+Archivos principales:
+
+### registro.html
+
+Formulario de activación de usuario web.
+
+### altas.php
+
+Recibe los datos de registro.html, verifica que el cliente exista en la base y tenga una tarjeta asociada. Luego actualiza el usuario y la contraseña web.
+
+### ingreso.html
+
+Formulario de inicio de sesión.
+
+### ingreso.php
+
+Valida las credenciales del cliente e inicia la sesión.
+
+### resumen.php
+
+Muestra los datos del cliente, la tarjeta, la última liquidación y el historial de liquidaciones.
+
+### logout.php
+
+Cierra la sesión del usuario.
+
+### conexion.php
+
+Contiene la conexión centralizada a la base de datos.
+
+---
+
+## Requisitos para ejecutar el proyecto
+
+Para probar el sistema se necesita:
+
+* XAMPP instalado.
+* Apache iniciado desde XAMPP.
+* MySQL iniciado desde XAMPP.
+* .NET SDK instalado.
+* Navegador web.
+* Visual Studio Code o terminal.
+
+---
+
+## Importar la base de datos
+
+### Opción 1: usando phpMyAdmin
+
+1. Abrir XAMPP.
+2. Iniciar Apache y MySQL.
+3. Ir a:
+
+text
+http://localhost/phpmyadmin
+
+
+4. Crear o seleccionar la base de datos mi_banco_db.
+5. Ir a la pestaña *Importar*.
+6. Seleccionar el archivo:
+
+text
+mi_banco_db.sql
+
+
+7. Ejecutar la importación.
+
+---
+
+### Opción 2: usando terminal
+
+Desde la carpeta donde está el archivo mi_banco_db.sql, ejecutar:
+
+bash
+C:\xampp\mysql\bin\mysql.exe -uroot mi_banco_db < mi_banco_db.sql
+
+
+---
+
+## Ejecutar la parte web
+
+Copiar la carpeta del proyecto dentro de:
+
+text
+C:\xampp\htdocs\
+
+
+Por ejemplo:
+
+text
+C:\xampp\htdocs\tp_progra3\
+
+
+Luego abrir en el navegador:
+
+text
+http://localhost/tp_progra3/ingreso.html
+
+
+---
+
+## Usuarios de prueba
+
+Se pueden probar los siguientes accesos:
+
+text
+Tipo documento: DNI
+Documento: 20123456
+Usuario: carlos85
+Contraseña: clave123
+
+
+text
+Tipo documento: DNI
+Documento: 30987654
+Usuario: anamar
+Contraseña: clave123
+
+
+text
+Tipo documento: DNI
+Documento: 40111222
+Usuario: luciaweb
+Contraseña: clave123
+
+
+---
+
+## Ejecutar la aplicación C#
+
+Desde una terminal ubicada en la carpeta del proyecto, ejecutar:
+
+bash
+dotnet restore
+
+
+Luego:
+
+bash
+dotnet build
+
+
+Y finalmente:
+
+bash
+dotnet run --project Progra3card.csproj
+
+
+Al ejecutar, se mostrará el menú principal de la aplicación administrativa.
+
+---
+
+## Pruebas realizadas
+
+Se verificó el funcionamiento de:
+
+* Importación de la base de datos.
+* Conexión de PHP con MySQL.
+* Login de clientes desde ingreso.html.
+* Creación y validación de sesión.
+* Visualización de resumen de cuenta.
+* Visualización de historial de liquidaciones.
+* Cierre de sesión.
+* Compilación de la aplicación C#.
+* Ejecución del menú administrativo.
+* Listado de tarjetas.
+* Consulta de detalle de tarjeta y cliente.
+* Emisión de liquidación desde C# y visualización posterior desde el portal web.
+
+---
+
+## Notas importantes
+
+Al compilar la aplicación C# pueden generarse automáticamente carpetas como:
+
+text
+bin/
+obj/
+
+
+Estos archivos son generados por .NET y no forman parte del código fuente del trabajo práctico.
+
+Por eso se incluyó un archivo .gitignore para evitar subir archivos innecesarios al repositorio.
+
+---
+
+## Archivos principales entregados
+
+text
+README.md
+mi_banco_db.sql
+Progra3card.cs
+Progra3card.csproj
+ingreso.html
+registro.html
+conexion.php
+altas.php
+ingreso.php
+resumen.php
+logout.php
+.gitignore
+
+
+---
+
+## Estado del proyecto
+
+Proyecto funcional para la entrega del Trabajo Práctico Integrador de Programación III.
+
+El sistema permite administrar tarjetas y liquidaciones desde consola C#, y consultar la información desde un portal web PHP conectado a la misma base de datos MySQL.
